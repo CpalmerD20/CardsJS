@@ -1,7 +1,13 @@
 const standardValues = 'Ace 2 3 4 5 6 7 8 9 10 Jack Queen King'.split(' ');
 const tarotValues = ['Knight', ...standardValues];
 const frenchSuits = ['clubs', 'diamonds', 'hearts', 'spades'];
-const minorArcana = ['wands', 'pentacles', 'cups', 'blades']
+const minorArcana = ['wands', 'pentacles', 'cups', 'blades'];
+const majorArcana = ['The Fool',
+  'The Magician', 'The High Priestess', 'The Empress', 'The Emperor', 'The Hierophant', 
+  'The Lovers', 'The Chariot', 'Strength', 'The Hermit', 'Wheel of Fortune', 
+  'Justice', 'The Hanged Man', 'Death', 'Temperance', 'The Devil', 
+  'The Tower', 'The Star', 'The Moon', 'The Sun', 'Judgement', 'The World', 
+];
 
 class Card {
   #value;
@@ -18,15 +24,6 @@ class Deck {
   cards = [];
 
   constructor(values, suits) {
-    // const range = values.length;
-    
-    // for(let i = 0; i < range; ++i) {
-    //   this.cards.push(new Card(values[i], suits[0]));
-    //   this.cards.push(new Card(values[i], suits[1]));
-    //   this.cards.push(new Card(values[i], suits[2]));
-    //   this.cards.push(new Card(values[i], suits[3]));
-    // }  
-
     values.forEach( value => {
       this.cards.push(new Card(value, suits[0]));
       this.cards.push(new Card(value, suits[1]));
@@ -47,15 +44,23 @@ class Deck {
         array[u] = temp;
     }
   }
+
+  addMajorArcana() {
+    const range = majorArcana.length;
+    for(let i = 0; i < range; ++i){
+      this.cards.push(new Card(i, majorArcana[i]));
+    }
+  }
 }
 
 
 const deck = new Deck(standardValues, frenchSuits);
-// deck.shuffle();
 console.log(deck);
+// deck.shuffle();
 // console.log(deck.draw());
 
 const tarot = new Deck(tarotValues, minorArcana);
-// tarot.shuffle();
+tarot.addMajorArcana();
 console.log(tarot);
+// tarot.shuffle();
 // console.log(tarot.draw());
